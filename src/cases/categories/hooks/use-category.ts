@@ -38,3 +38,16 @@ export function useCategories(){
     },
   })
 }
+ export function useDeleteCategory() {
+    const queryClient = useQueryClient()
+
+    return useMutation({
+        mutationFn: CategoryService.delete,
+
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({
+                queryKey: ['categories'],
+            })
+        },
+    })
+}

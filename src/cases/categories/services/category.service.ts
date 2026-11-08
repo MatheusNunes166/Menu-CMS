@@ -21,5 +21,8 @@ export const CategoryService = {
     async update(id:string, dto: UpdateCategoryDto,): Promise<CategoryDTO> {
         const result = await api.patch<CategoryDTO>(`${ENDPOINT}/${id}`, dto);
         return result.data;
-    }
+    },
+    async delete(id:string): Promise<void> {
+        await api.delete(`${ENDPOINT}/${id}`);
+    },
 }

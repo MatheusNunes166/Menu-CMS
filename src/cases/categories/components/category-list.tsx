@@ -9,8 +9,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { useState } from "react"
+import { CategoryDeleteDialog } from "./category-delete-dialog"
 
 export function CategoryList() {
+  const [success, setSuccess] = useState("")
+
   const {
     data: categories = [],
     isPending,
@@ -39,11 +43,17 @@ export function CategoryList() {
     )
   }
 
-  if (categories.length === 0) {
-    return <p>Nenhuma categoria cadastrada.</p>
-  }
-
   return (
+    <div className="space-y-4">
+      {success && (
+        <p role="status" className="text-sm text-green-500">
+          {success}
+        </p>
+      )}
+
+      {categories.length === 0 ? (
+        <p>Nenhuma categoria cadastrada.</p>
+      ) : (
     <Table>
       <TableHeader>
         <TableRow>
@@ -63,11 +73,22 @@ export function CategoryList() {
             </TableCell>
 
             <TableCell>
+              <div className="flex items-start gap-2">
               <CategoryEditDialog category={category} />
+
+              <CategoryDeleteDialog
+                category={category}
+                onDeleted={() => 
+                  setSuccess("categoria excluída com sucesso")
+                }
+              />
+              </div>
             </TableCell>
           </TableRow>
         ))}
       </TableBody>
     </Table>
+  )}
+  </div>
   )
 }
