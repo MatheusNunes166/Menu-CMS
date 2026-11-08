@@ -24,11 +24,17 @@ export function CategoryEditDialog({
 }: CategoryEditDialogProps) {
   const [open, setOpen] = useState(false)
   const [name, setName] = useState(category.name)
+  const [icon, setIcon] = useState(category.icon ?? "")
+  const [displayOrder, setDisplayOrder] = useState(
+    String(category.displayOrder ?? 0),
+  )
   const [active, setActive] = useState(category.active)
   const [validation, setValidation] = useState("")
   const [success, setSuccess] = useState(false)
 
   const nameId = useId()
+  const iconId = useId()
+  const orderId = useId()
   const activeId = useId()
   const updateCategory = useUpdateCategory()
 
@@ -39,6 +45,8 @@ export function CategoryEditDialog({
 
     if (nextOpen) {
       setName(category.name)
+      setIcon(category.icon ?? "")
+      setDisplayOrder(String(category.displayOrder ?? 0))
       setActive(category.active)
       setValidation("")
       setSuccess(false)
@@ -49,8 +57,27 @@ export function CategoryEditDialog({
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
-    if (!name.trim()) {
-      setValidation("Informe o nome da categoria.")
+    const order = Number(displayOrder)
+
+    if (!name.trim() || name.trim().length > 60) {
+      setValidation("Informe um nome de até 60 caracteres.")
+      return
+    }
+
+    if (icon.trim().length > 60) {
+      setValidation("O ícone deve ter até 60 caracteres.")
+      return
+    }
+
+    if (
+      displayOrder.trim() === "" ||
+      !Number.isInteger(order) ||
+      order < 0 ||
+      order > 2147483647
+    ) {
+      setValidation(
+        "A ordem deve ser um número inteiro entre 0 e 2147483647.",
+      )
       return
     }
 
@@ -61,6 +88,8 @@ export function CategoryEditDialog({
         id: category.id,
         dto: {
           name: name.trim(),
+          icon: icon.trim(),
+          displayOrder: order,
           active,
         },
       },
@@ -74,7 +103,7 @@ export function CategoryEditDialog({
   }
 
   return (
-    <div>
+    <div className="w-16 shrink-0">
       <Dialog open={open} onOpenChange={handleOpenChange}>
         <DialogTrigger render={<Button variant="outline" />}>
           Editar
@@ -83,8 +112,9 @@ export function CategoryEditDialog({
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Editar categoria</DialogTitle>
+
             <DialogDescription>
-              Altere o nome e a situação da categoria.
+              Altere os dados da categoria do cardápio.
             </DialogDescription>
           </DialogHeader>
 
@@ -102,11 +132,44 @@ export function CategoryEditDialog({
               />
             </div>
 
+            <div className="space-y-2">
+              <Label htmlFor={iconId}>Ícone</Label>
+
+              <Input
+                id={iconId}
+                value={icon}
+                onChange={(event) => setIcon(event.target.value)}
+                placeholder="Ex.: 🍔"
+                maxLength={60}
+                disabled={updateCategory.isPending}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor={orderId}>Ordem de exibição</Label>
+
+              <Input
+                id={orderId}
+                type="number"
+                min={0}
+                max={2147483647}
+                step={1}
+                value={displayOrder}
+                onChange={(event) =>
+                  setDisplayOrder(event.target.value)
+                }
+                required
+                disabled={updateCategory.isPending}
+              />
+            </div>
+
             <div className="flex items-center gap-2">
               <Checkbox
                 id={activeId}
                 checked={active}
-                onCheckedChange={(checked) => setActive(checked === true)}
+                onCheckedChange={(checked) =>
+                  setActive(checked === true)
+                }
                 disabled={updateCategory.isPending}
               />
 
@@ -150,7 +213,7 @@ export function CategoryEditDialog({
       </Dialog>
 
       {success && (
-        <p role="status" className="mt-2 text-sm text-green-700">
+        <p role="status" className="mt-2 text-xs text-green-700">
           Categoria atualizada!
         </p>
       )}

@@ -58,6 +58,8 @@ export function CategoryList() {
       <TableHeader>
         <TableRow>
           <TableHead>Nome</TableHead>
+          <TableHead>Ícone</TableHead>
+          <TableHead>Ordem de exibição</TableHead>
           <TableHead>Situação</TableHead>
           <TableHead>Ações</TableHead>
         </TableRow>
@@ -67,6 +69,8 @@ export function CategoryList() {
         {categories.map((category) => (
           <TableRow key={category.id}>
             <TableCell>{category.name}</TableCell>
+            <TableCell>{category.icon || "-"}</TableCell>
+            <TableCell>{category.displayOrder}</TableCell>
 
             <TableCell>
               {category.active ? "Ativa" : "Inativa"}
