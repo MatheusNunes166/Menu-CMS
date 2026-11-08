@@ -1,5 +1,6 @@
 import { useCategories } from "../hooks/use-category"
 import { Button } from "@/components/ui/button"
+import {CategoryEditDialog} from "./category-edit-dialog"
 import {
   Table,
   TableBody,
@@ -48,6 +49,7 @@ export function CategoryList() {
         <TableRow>
           <TableHead>Nome</TableHead>
           <TableHead>Situação</TableHead>
+          <TableHead>Ações</TableHead>
         </TableRow>
       </TableHeader>
 
@@ -58,6 +60,10 @@ export function CategoryList() {
 
             <TableCell>
               {category.active ? "Ativa" : "Inativa"}
+            </TableCell>
+
+            <TableCell>
+              <CategoryEditDialog category={category} />
             </TableCell>
           </TableRow>
         ))}
