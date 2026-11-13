@@ -16,6 +16,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import { ProductDeleteDialog } from "./product-delete-dialog"
 
 const currency = new Intl.NumberFormat("pt-BR", {
     style: "currency",
@@ -184,12 +185,20 @@ export function ProductList() {
                                     </Badge>
                                 </TableCell>
                                 <TableCell>
-                                    <ProductEditDialog
-                                        product={product}
-                                        onUpdated={() =>
-                                            setSuccess("Produto atualizado com sucesso!")
-                                        }
-                                    />
+                                    <div className="flex items-start gap-2">
+                                        <ProductEditDialog
+                                            product={product}
+                                            onUpdated={() =>
+                                                setSuccess("Produto atualizado com sucesso!")
+                                            }
+                                        />
+                                        <ProductDeleteDialog
+                                            product={product}
+                                            onDeleted={() =>
+                                                setSuccess("Produto excluído com sucesso!")
+                                            }
+                                        />
+                                    </div>
                                 </TableCell>
 
                             </TableRow>

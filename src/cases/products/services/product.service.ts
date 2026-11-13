@@ -6,32 +6,35 @@ import type { UpdateProductDTO } from "../dtos/update-product.dto"
 const ENDPOINT = "/products"
 
 export const ProductService = {
-  async listAll(): Promise<ProductDTO[]> {
-    const result = await api.get<ProductDTO[]>(ENDPOINT)
-    return result.data
-  },
-
-  async findOne(id: string): Promise<ProductDTO> {
-    const result = await api.get<ProductDTO>(
-      `${ENDPOINT}/${id}`,
-    )
-    
-
-    return result.data
-  },
-  async create(dto: CreateProductDTO): Promise<ProductDTO> {
-    const result = await api.post<ProductDTO>(ENDPOINT, dto)
+    async listAll(): Promise<ProductDTO[]> {
+        const result = await api.get<ProductDTO[]>(ENDPOINT)
         return result.data
-},
+    },
+
+    async findOne(id: string): Promise<ProductDTO> {
+        const result = await api.get<ProductDTO>(
+            `${ENDPOINT}/${id}`,
+        )
+
+
+        return result.data
+    },
+    async create(dto: CreateProductDTO): Promise<ProductDTO> {
+        const result = await api.post<ProductDTO>(ENDPOINT, dto)
+        return result.data
+    },
     async update(
         id: string,
         dto: UpdateProductDTO,
-        )  : Promise<ProductDTO> {
+    ): Promise<ProductDTO> {
         const result = await api.patch<ProductDTO>(
-        `${ENDPOINT}/${id}`,
-        dto,
-  )
+            `${ENDPOINT}/${id}`,
+            dto,
+        )
 
-  return result.data
-},
+        return result.data
+    },
+    async delete(id: string): Promise<void> {
+        await api.delete(`${ENDPOINT}/${id}`)
+    },
 }
