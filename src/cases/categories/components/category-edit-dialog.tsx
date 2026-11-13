@@ -64,10 +64,6 @@ export function CategoryEditDialog({
       return
     }
 
-    if (icon.trim().length > 60) {
-      setValidation("O ícone deve ter até 60 caracteres.")
-      return
-    }
 
     if (
       displayOrder.trim() === "" ||
@@ -133,15 +129,14 @@ export function CategoryEditDialog({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor={iconId}>Ícone</Label>
+              <Label htmlFor={iconId}>URL do Ícone</Label>
 
               <Input
                 id={iconId}
+                type="url"
                 value={icon}
                 onChange={(event) => setIcon(event.target.value)}
-                placeholder="Ex.: 🍔"
-                maxLength={60}
-                disabled={updateCategory.isPending}
+                placeholder="https://.../icons/icon-bebida.svg"
               />
             </div>
 

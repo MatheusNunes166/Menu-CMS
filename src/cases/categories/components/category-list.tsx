@@ -69,7 +69,19 @@ export function CategoryList() {
         {categories.map((category) => (
           <TableRow key={category.id}>
             <TableCell>{category.name}</TableCell>
-            <TableCell>{category.icon || "-"}</TableCell>
+            <TableCell>
+  {category.icon ? (
+    <img
+      src={category.icon}
+      alt={`Ícone de ${category.name}`}
+      className="size-10 object-contain"
+    />
+  ) : (
+    <span className="text-muted-foreground">
+      Sem ícone
+    </span>
+  )}
+</TableCell>
             <TableCell>{category.displayOrder}</TableCell>
 
             <TableCell>
@@ -89,7 +101,7 @@ export function CategoryList() {
               </div>
             </TableCell>
           </TableRow>
-        ))}
+        ))} 
       </TableBody>
     </Table>
   )}
