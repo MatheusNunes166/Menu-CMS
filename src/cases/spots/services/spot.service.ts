@@ -33,4 +33,7 @@ export const SpotService = {
 
     return result.data
   },
+  async delete(id: string): Promise<void> {
+    await api.delete(`${ENDPOINT}/${id}`)
+  },
 }

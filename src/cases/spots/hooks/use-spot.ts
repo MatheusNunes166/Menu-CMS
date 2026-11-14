@@ -40,3 +40,16 @@ export function useUpdateSpot() {
         },
     })
 }
+export function useDeleteSpot() {
+    const queryClient = useQueryClient()
+
+    return useMutation({
+        mutationFn: SpotService.delete,
+
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({
+                queryKey: ["spots"],
+            })
+        },
+    })
+}
