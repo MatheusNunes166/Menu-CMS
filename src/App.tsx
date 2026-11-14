@@ -5,14 +5,16 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { ProductList } from "./cases/products/components/product-list"
 import { ProductDialog } from "./cases/products/components/product-dialog"
+import { SpotList } from "./cases/spots/components/spot-list"
+import { SpotDialog } from "./cases/spots/components/spot-dialog"
 
 
-function App(){
-  const [page, setPage] = useState<"categories" | "products">(
+function App() {
+  const [page, setPage] = useState<"categories" | "products" | "spots">(
     "categories"
   )
 
-  return(
+  return (
     <main className="min-h-screen bg-background p-8 text-foreground">
       <h1 className="mb-2 text-3xl font-bold">Menu CMS</h1>
 
@@ -22,17 +24,17 @@ function App(){
 
 
       <nav
-      aria-label="Áreas do CMS"
-      className="mb-8 flex gap-2"
+        aria-label="Áreas do CMS"
+        className="mb-8 flex gap-2"
       >
         <Button
-          variant={page==="categories" ? "default":"outline"}
-          aria-pressed={page ==="categories"}
+          variant={page === "categories" ? "default" : "outline"}
+          aria-pressed={page === "categories"}
           onClick={() => setPage("categories")}
-          >
-            Categorias
-          </Button>
-        
+        >
+          Categorias
+        </Button>
+
         <Button
           variant={page === "products" ? "default" : "outline"}
           aria-pressed={page === "products"}
@@ -40,24 +42,45 @@ function App(){
         >
           Produtos
         </Button>
+
+        <Button
+          variant={page === "spots" ? "default" : "outline"}
+          aria-pressed={page === "spots"}
+          onClick={() => setPage("spots")}
+        >
+          Mesas
+        </Button>
       </nav>
-      {page === "categories" ?(
-      <section>
-        <div className="mb-6 flex itens-center justify-between gap-4">
-          <h2 className="text-2x1 font-semibold">Categorias</h2>
-          <CategoryDialog />
-      </div>
-      <CategoryList/>
-     </section>
-     ):(
-      <section>
-        <div className="mb-6 flex items-start justify-between gap-4">
-        <h2 className="mb-6 text-2xl font-semibold">Produtos</h2>
-        <ProductDialog />
-        </div>
-        <ProductList />
-      </section>
-     )}
+      {page === "categories" ? (
+        <section>
+          <div className="mb-6 flex itens-center justify-between gap-4">
+            <h2 className="text-2x1 font-semibold">Categorias</h2>
+            <CategoryDialog />
+          </div>
+          <CategoryList />
+        </section>
+      ) : (
+        <section>
+          <div className="mb-6 flex items-start justify-between gap-4">
+            <h2 className="mb-6 text-2xl font-semibold">Produtos</h2>
+            <ProductDialog />
+          </div>
+          <ProductList />
+        </section>
+      )}
+
+
+      {page === "spots" && (
+        <section>
+          <div className="mb-6 flex items-start justify-between gap-4">
+          <h2 className="mb-6 text-2xl font-semibold">Mesas</h2>
+
+          <SpotDialog />
+          </div>
+
+          <SpotList />
+        </section>
+      )}
     </main>
   )
 }

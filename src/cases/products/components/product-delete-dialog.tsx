@@ -91,5 +91,5 @@ export function ProductDeleteDialog({
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  )
+  ) 
 }

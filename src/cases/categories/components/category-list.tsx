@@ -1,6 +1,6 @@
 import { useCategories } from "../hooks/use-category"
 import { Button } from "@/components/ui/button"
-import {CategoryEditDialog} from "./category-edit-dialog"
+import { CategoryEditDialog } from "./category-edit-dialog"
 import {
   Table,
   TableBody,
@@ -54,57 +54,57 @@ export function CategoryList() {
       {categories.length === 0 ? (
         <p>Nenhuma categoria cadastrada.</p>
       ) : (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHead>Nome</TableHead>
-          <TableHead>Ícone</TableHead>
-          <TableHead>Ordem de exibição</TableHead>
-          <TableHead>Situação</TableHead>
-          <TableHead>Ações</TableHead>
-        </TableRow>
-      </TableHeader>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Nome</TableHead>
+              <TableHead>Ícone</TableHead>
+              <TableHead>Ordem de exibição</TableHead>
+              <TableHead>Situação</TableHead>
+              <TableHead>Ações</TableHead>
+            </TableRow>
+          </TableHeader>
 
-      <TableBody>
-        {categories.map((category) => (
-          <TableRow key={category.id}>
-            <TableCell>{category.name}</TableCell>
-            <TableCell>
-  {category.icon ? (
-    <img
-      src={category.icon}
-      alt={`Ícone de ${category.name}`}
-      className="size-10 object-contain"
-    />
-  ) : (
-    <span className="text-muted-foreground">
-      Sem ícone
-    </span>
-  )}
-</TableCell>
-            <TableCell>{category.displayOrder}</TableCell>
+          <TableBody>
+            {categories.map((category) => (
+              <TableRow key={category.id}>
+                <TableCell>{category.name}</TableCell>
+                <TableCell>
+                  {category.icon ? (
+                    <img
+                      src={category.icon}
+                      alt={`Ícone de ${category.name}`}
+                      className="size-10 object-contain"
+                    />
+                  ) : (
+                    <span className="text-muted-foreground">
+                      Sem ícone
+                    </span>
+                  )}
+                </TableCell>
+                <TableCell>{category.displayOrder}</TableCell>
 
-            <TableCell>
-              {category.active ? "Ativa" : "Inativa"}
-            </TableCell>
+                <TableCell>
+                  {category.active ? "Ativa" : "Inativa"}
+                </TableCell>
 
-            <TableCell>
-              <div className="flex items-start gap-2">
-              <CategoryEditDialog category={category} />
+                <TableCell>
+                  <div className="flex items-start gap-2">
+                    <CategoryEditDialog category={category} />
 
-              <CategoryDeleteDialog
-                category={category}
-                onDeleted={() => 
-                  setSuccess("categoria excluída com sucesso")
-                }
-              />
-              </div>
-            </TableCell>
-          </TableRow>
-        ))} 
-      </TableBody>
-    </Table>
-  )}
-  </div>
+                    <CategoryDeleteDialog
+                      category={category}
+                      onDeleted={() =>
+                        setSuccess("categoria excluída com sucesso")
+                      }
+                    />
+                  </div>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      )}
+    </div>
   )
 }
