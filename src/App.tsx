@@ -17,7 +17,7 @@
 
     return (
       <main className="min-h-screen bg-background p-8 text-foreground">
-        <h1 className="mb-2 text-3xl font-bold">Menu CMS</h1>
+        <h1 className="mb-2 text-3xl font-bold text-primary">Menu CMS</h1>
 
         <p className="mb-8 text-muted-foreground">
           Administração do cardápio digital
@@ -60,7 +60,7 @@
           </Button>
         </nav>
         {page === "categories" && (
-          <section>
+          <section className="rounded-xl border bg-card p-6 shadow-sm">
             <div className="mb-6 flex itens-center justify-between gap-4">
               <h2 className="text-2x1 font-semibold">Categorias</h2>
               <CategoryDialog />
@@ -69,7 +69,7 @@
           </section>
         )}
         {page ==="products" &&(
-          <section>
+          <section className="rounded-xl border bg-card p-6 shadow-sm">
             <div className="mb-6 flex items-start justify-between gap-4">
               <h2 className="mb-6 text-2xl font-semibold">Produtos</h2>
               <ProductDialog />
@@ -80,7 +80,7 @@
 
 
         {page === "spots" && (
-          <section>
+          <section className="rounded-xl border bg-card p-6 shadow-sm">
             <div className="mb-6 flex items-start justify-between gap-4">
               <h2 className="mb-6 text-2xl font-semibold">Mesas</h2>
 
@@ -92,7 +92,7 @@
 
         )}
         {page === "guest-checks" && (
-          <section>
+          <section className="rounded-xl border bg-card p-6 shadow-sm">
             <h2 className="mb-6 text-2xl font-semibold">
               Comandas abertas
             </h2>
