@@ -1,106 +1,123 @@
-  /* eslint-disable @typescript-eslint/no-unused-vars */
-  import { CategoryList } from "./cases/categories/components/category-list"
-  import { CategoryDialog } from "./cases/categories/components/category-dialog"
-  import { useState } from "react"
-  import { Button } from "@/components/ui/button"
-  import { ProductList } from "./cases/products/components/product-list"
-  import { ProductDialog } from "./cases/products/components/product-dialog"
-  import { SpotList } from "./cases/spots/components/spot-list"
-  import { SpotDialog } from "./cases/spots/components/spot-dialog"
-  import { GuestCheckList } from "./cases/guest-check/components/guest-check-list"
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { CategoryList } from "./cases/categories/components/category-list"
+import { CategoryDialog } from "./cases/categories/components/category-dialog"
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
+import { ProductList } from "./cases/products/components/product-list"
+import { ProductDialog } from "./cases/products/components/product-dialog"
+import { SpotList } from "./cases/spots/components/spot-list"
+import { SpotDialog } from "./cases/spots/components/spot-dialog"
+import { GuestCheckList } from "./cases/guest-check/components/guest-check-list"
+import { OrderKanban } from "./cases/orders/components/order-kanban"
 
 
-  function App() {
-    const [page, setPage] = useState<"categories" | "products" | "spots" | "guest-checks">(
-      "categories"
-    )
+function App() {
+  const [page, setPage] = useState<"categories" | "products" | "spots" | "guest-checks" | "kanban">(
+    "categories"
+  )
 
-    return (
-      <main className="min-h-screen bg-background p-8 text-foreground">
-        <h1 className="mb-2 text-3xl font-bold text-primary">Menu CMS</h1>
+  return (
+    <main className="min-h-screen bg-background p-8 text-foreground">
+      <h1 className="mb-2 text-3xl font-bold text-primary">Menu CMS</h1>
 
-        <p className="mb-8 text-muted-foreground">
-          Administração do cardápio digital
-        </p>
+      <p className="mb-8 text-muted-foreground">
+        Administração do cardápio digital
+      </p>
 
 
-        <nav
-          aria-label="Áreas do CMS"
-          className="mb-8 flex gap-2"
+      <nav
+        aria-label="Áreas do CMS"
+        className="mb-8 flex gap-2"
+      >
+        <Button
+          variant={page === "categories" ? "default" : "outline"}
+          aria-pressed={page === "categories"}
+          onClick={() => setPage("categories")}
         >
-          <Button
-            variant={page === "categories" ? "default" : "outline"}
-            aria-pressed={page === "categories"}
-            onClick={() => setPage("categories")}
-          >
-            Categorias
-          </Button>
+          Categorias
+        </Button>
 
-          <Button
-            variant={page === "products" ? "default" : "outline"}
-            aria-pressed={page === "products"}
-            onClick={() => setPage("products")}
-          >
-            Produtos
-          </Button>
+        <Button
+          variant={page === "products" ? "default" : "outline"}
+          aria-pressed={page === "products"}
+          onClick={() => setPage("products")}
+        >
+          Produtos
+        </Button>
 
-          <Button
-            variant={page === "spots" ? "default" : "outline"}
-            aria-pressed={page === "spots"}
-            onClick={() => setPage("spots")}
-          >
-            Mesas
-          </Button>
-          <Button
-            variant={page === "guest-checks" ? "default" : "outline"}
-            aria-pressed={page === "guest-checks"}
-            onClick={() => setPage("guest-checks")}
-          >
-            Comandas
-          </Button>
-        </nav>
-        {page === "categories" && (
-          <section className="rounded-xl border bg-card p-6 shadow-sm">
-            <div className="mb-6 flex itens-center justify-between gap-4">
-              <h2 className="text-2x1 font-semibold">Categorias</h2>
-              <CategoryDialog />
-            </div>
-            <CategoryList />
-          </section>
-        )}
-        {page ==="products" &&(
-          <section className="rounded-xl border bg-card p-6 shadow-sm">
-            <div className="mb-6 flex items-start justify-between gap-4">
-              <h2 className="mb-6 text-2xl font-semibold">Produtos</h2>
-              <ProductDialog />
-            </div>
-            <ProductList />
-          </section>
-        )}
+        <Button
+          variant={page === "spots" ? "default" : "outline"}
+          aria-pressed={page === "spots"}
+          onClick={() => setPage("spots")}
+        >
+          Mesas
+        </Button>
+        <Button
+          variant={page === "guest-checks" ? "default" : "outline"}
+          aria-pressed={page === "guest-checks"}
+          onClick={() => setPage("guest-checks")}
+        >
+          Comandas
+        </Button>
+        <Button
+          variant={page === "kanban" ? "default" : "outline"}
+          aria-pressed={page === "kanban"}
+          onClick={() => setPage("kanban")}
+        >
+          Kanban
+        </Button>
+      </nav>
+      {page === "categories" && (
+        <section className="rounded-xl border bg-card p-6 shadow-sm">
+          <div className="mb-6 flex itens-center justify-between gap-4">
+            <h2 className="text-2x1 font-semibold">Categorias</h2>
+            <CategoryDialog />
+          </div>
+          <CategoryList />
+        </section>
+      )}
+      {page === "products" && (
+        <section className="rounded-xl border bg-card p-6 shadow-sm">
+          <div className="mb-6 flex items-start justify-between gap-4">
+            <h2 className="mb-6 text-2xl font-semibold">Produtos</h2>
+            <ProductDialog />
+          </div>
+          <ProductList />
+        </section>
+      )}
 
 
-        {page === "spots" && (
-          <section className="rounded-xl border bg-card p-6 shadow-sm">
-            <div className="mb-6 flex items-start justify-between gap-4">
-              <h2 className="mb-6 text-2xl font-semibold">Mesas</h2>
+      {page === "spots" && (
+        <section className="rounded-xl border bg-card p-6 shadow-sm">
+          <div className="mb-6 flex items-start justify-between gap-4">
+            <h2 className="mb-6 text-2xl font-semibold">Mesas</h2>
 
-              <SpotDialog />
-            </div>
+            <SpotDialog />
+          </div>
 
-            <SpotList />
-          </section>
+          <SpotList />
+        </section>
 
-        )}
-        {page === "guest-checks" && (
-          <section className="rounded-xl border bg-card p-6 shadow-sm">
-            <h2 className="mb-6 text-2xl font-semibold">
-              Comandas abertas
-            </h2>
+      )}
+      {page === "guest-checks" && (
+        <section className="rounded-xl border bg-card p-6 shadow-sm">
+          <h2 className="mb-6 text-2xl font-semibold">
+            Comandas abertas
+          </h2>
 
-            <GuestCheckList />
-          </section>
-        )}
-      </main>
-    )
-  }
-  export default App
+          <GuestCheckList />
+        </section>
+      )}
+      {page === "kanban" && (
+        <section className="rounded-xl border bg-card p-6 shadow-sm">
+          <h2 className="mb-6 text-2xl font-semibold text-secondary-foreground">
+            Kanban de pedidos
+          </h2>
+
+          <OrderKanban />
+        </section>
+      )}
+    </main>
+  )
+}
+export default App
